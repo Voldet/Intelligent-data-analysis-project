@@ -25,11 +25,11 @@ def normalization(data):
 
 if __name__ == '__main__':
     data = read_data('Dataset.csv', 'C:\Users\machenike\Desktop')
-    data = normalization(data)
+    data = mat(normalization(data))
     pca = PCA(n_components=2)
     pca.fit(data)
     PCA(copy=True, n_components=2,whiten =False)
     newMat = pca.transform(data)
     print(newMat.shape)
-    scatter(newMat[:,0],newMat[:,1])
+    scatter(data[:,0],data[:,1])
     show()
