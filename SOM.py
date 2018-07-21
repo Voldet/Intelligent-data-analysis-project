@@ -14,45 +14,6 @@ class Som(object):
     def __init__(self, x, y, input_len, sigma=1.0, learning_rate=0.5,
                  decay_function=None, neighborhood_function='gaussian',
                  random_seed=None):
-        """Initializes a Self Organizing Maps.
-
-        Parameters
-        ----------
-        decision_tree : decision tree
-        The decision tree to be exported.
-
-        x : int
-            x dimension of the SOM
-
-        y : int
-            y dimension of the SOM
-
-        input_len : int
-            Number of the elements of the vectors in input.
-
-        sigma : float, optional (default=1.0)
-            Spread of the neighborhood function, needs to be adequate
-            to the dimensions of the map.
-            (at the iteration t we have sigma(t) = sigma / (1 + t/T)
-            where T is #num_iteration/2)
-            learning_rate, initial learning rate
-            (at the iteration t we have
-            learning_rate(t) = learning_rate / (1 + t/T)
-            where T is #num_iteration/2)
-
-        decay_function : function (default=None)
-            Function that reduces learning_rate and sigma at each iteration
-            default function:
-            lambda x, current_iteration, max_iter :
-                        x/(1+current_iteration/max_iter)
-
-        neighborhood_function : function, optional (default='gaussian')
-            Function that weights the neighborhood of a position in the map
-            possible values: 'gaussian', 'mexican_hat'
-
-        random_seed : int, optiona (default=None)
-            Random seed to use.
-        """
         self.error = []
         if sigma >= x/2.0 or sigma >= y/2.0:
             warn('Warning: sigma is too high for the dimension of the map.')
@@ -85,12 +46,9 @@ class Som(object):
         self.neighborhood = neig_functions[neighborhood_function]
 
     def get_weights(self):
-        """Returns the weights of the neural network"""
         return self._weights
 
     def _activate(self, x):
-        """Updates matrix activation_map, in this matrix
-           the element i,j is the response of the neuron i,j to x"""
         s = subtract(x, self._weights)  # x - w
         it = nditer(self._activation_map, flags=['multi_index'])
         while not it.finished:
@@ -99,42 +57,15 @@ class Som(object):
             it.iternext()
 
     def activate(self, x):
-        """Returns the activation map to x"""
         self._activate(x)
         return self._activation_map
 
-    def _gaussian(self, c, sigma):
-        """Returns a Gaussian centered in c"""
-        d = 2*pi*sigma*sigma
-        ax = exp(-power(self._neigx-c[0], 2)/d)
-        ay = exp(-power(self._neigy-c[1], 2)/d)
-        return outer(ax, ay)  # the external product gives a matrix
-
-    def _mexican_hat(self, c, sigma):
-        """Mexican hat centered in c"""
-        xx, yy = meshgrid(self._neigx, self._neigy)
-        p = power(xx-c[0], 2) + power(yy-c[1], 2)
-        d = 2*pi*sigma*sigma
-        return exp(-p/d)*(1-2/d*p)
-
     def winner(self, x):
-        """Computes the coordinates of the winning neuron for the sample x"""
         self._activate(x)
         return unravel_index(self._activation_map.argmin(),
                              self._activation_map.shape)
 
     def update(self, x, win, t):
-        """Updates the weights of the neurons.
-
-        Parameters
-        ----------
-        x : np.array
-            Current pattern to learn
-        win : tuple
-            Position of the winning neuron for x (array or tuple).
-        t : int
-            Iteration index
-        """
         eta = self._decay_function(self._learning_rate, t, self.T)
         # sigma and learning rate decrease with the same rule
         sig = self._decay_function(self._sigma, t, self.T)
@@ -159,8 +90,6 @@ class Som(object):
         return q
 
     def random_weights_init(self, data):
-        """Initializes the weights of the SOM
-        picking random samples from data"""
         it = nditer(self._activation_map, flags=['multi_index'])
         while not it.finished:
             rand_i = self._random_generator.randint(len(data))
@@ -170,7 +99,6 @@ class Som(object):
             it.iternext()
 
     def train_random(self, data, num_iteration):
-        """Trains the SOM picking samples at random from data"""
         self._init_T(num_iteration)
         for iteration in range(num_iteration):
             # pick a random sample
@@ -183,22 +111,17 @@ class Som(object):
         return self.error
 
     def _init_T(self, num_iteration):
-        """Initializes the parameter T needed to adjust the learning rate"""
         # keeps the learning rate nearly constant
         # for the last half of the iterations
         self.T = num_iteration/2
 
     def distance_map(self):
-        """Returns the distance map of the weights.
-        Each cell is the normalised sum of the distances between
-        a neuron and its neighbours."""
         um = zeros((self._weights.shape[0], self._weights.shape[1]))
         it = nditer(um, flags=['multi_index'])
         while not it.finished:
             for ii in range(it.multi_index[0]-1, it.multi_index[0]+2):
                 for jj in range(it.multi_index[1]-1, it.multi_index[1]+2):
-                    if (ii >= 0 and ii < self._weights.shape[0] and
-                            jj >= 0 and jj < self._weights.shape[1]):
+                    if (ii >= 0 and ii < self._weights.shape[0] and jj >= 0 and jj < self._weights.shape[1]):
                         w_1 = self._weights[ii, jj, :]
                         w_2 = self._weights[it.multi_index]
                         um[it.multi_index] += fast_norm(w_1-w_2)
@@ -207,26 +130,18 @@ class Som(object):
         return um
 
     def activation_response(self, data):
-        """
-            Returns a matrix where the element i,j is the number of times
-            that the neuron i,j have been winner.
-        """
         a = zeros((self._weights.shape[0], self._weights.shape[1]))
         for x in data:
             a[self.winner(x)] += 1
         return a
 
     def quantization_error(self, data):
-        """Returns the quantization error computed as the average
-        distance between each input sample and its best matching unit."""
         error = 0
         for x in data:
             error += fast_norm(x-self._weights[self.winner(x)])
         return error/len(data)
 
     def win_map(self, data):
-        """Returns a dictionary wm where wm[(i,j)] is a list
-        with all the patterns that have been mapped in the position i,j."""
         winmap = defaultdict(list)
         for x in data:
             winmap[self.winner(x)].append(x)

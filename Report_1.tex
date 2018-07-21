@@ -78,13 +78,13 @@ Data Set}} \\
 \vspace{1cm}
 
 {\large\sc{under the guidance of}} \\
-\vspace{.5cm}
+%\vspace{.5cm}
 
 \hspace{.05cm} {\bf {Peter Ti\v{n}o}}\\
 \hspace{.05cm} {\sc and}\\
 \hspace{.05cm} {\bf {Guoji Fu}}\\
-\vspace{0.5cm}
-\vspace{0.5cm}
+%\vspace{0.5cm}
+%\vspace{0.5cm}
 %\universityseal\ \\
 
 \begin{figure}[h]
@@ -92,15 +92,13 @@ Data Set}} \\
 %\vspace{5cm}
 {\centering {\includegraphics[width=0.5\linewidth,angle=0]{logo/logo.png}}\par}
 \end{figure}
-
-\vskip 0.5cm
-
+%\vskip 0.5cm
 %\large{\bf Department of Mathematics \& Computing} \\
 \large{\bf Department of Computer Science and Engineering} \\
 \vskip 0.5cm
 %\Large{\bf Indian Institute of Technology Guwahati}\\
 \Large{\bf Southern University of Science and Technology}\\
-\vskip 0.5cm
+%\vskip 0.5cm
 {\centering \sc{Shenzhen, China, July 2018}}
 %} %%% this is end of centering environment
 \end{center}
@@ -178,11 +176,9 @@ In my assignment, there are two question I want to analysis:
 \section*{Normalization}
 The {\bf unit} and {\bf scale} of the data is different, this method can make different characters have the same scale.  Only in this way, the comparision can be valid.
 $$
-\begin{align}
-  \widehat{E[X_i]} &= \frac{1}{N} \sum_{j=1}^{N} X_i^j \\
-  \widehat{Var[X_i]}  &= \frac{1}{N} \sum_{j=1}^N (X_i^j - \widehat{E[X_i]})^2 = \sigma^2 \\
-  \widehat{X_{i,nor}^j} &= \frac{X_i^j - E[X_i]}{\sigma}
-\end{align}
+  \widehat{E[X_i]} \approx \frac{1}{N} \sum_{j=1}^{N} X_i^j \\
+  \widehat{Var[X_i]}   \approx \frac{1}{N} \sum_{j=1}^N (X_i^j - \widehat{E[X_i]})^2 = \sigma^2 \\
+  \widehat{X_{i,nor}^j}  \approx \frac{X_i^j - E[X_i]}{\sigma}
 $$
 %It's important to shift every attributes of the data to be centered:
 %$$\mathop{\mathbb{E}[X_i] = 0, i = 1,2,...d.}$$It's also important to scale the density of every attributes of the data so the standard %deviation (or variance) need to be rescaled: $$\mathop{\mathbb{Var}[X_i] = 1, i = 1,2,...d.}$$Now every attribute is standardized to $%\mathop{\frac{X_i - \mu}{\sigma}}$.
@@ -260,19 +256,17 @@ The final labelling result is:
 \subsection{Principal Component Analysis}
 
 
-After normalization, the co-variance of matrix $\mathcall{X}$ can be estimated as:
+After normalization, the co-variance of matrix X can be estimated as:
 $$
-\begin{align}
-  \widehat{C_{j,k}} &= \frac{1}{N} \sum_{i=1}^{N} (x_j^i - \mu _j) \cdot (x_k^i - \mu_k) = \frac{1}{N} \sum_{i=1}^{N} x_j^i \cdot x_k^i \\
-  \implies \widehat{C} &= \frac{1}{N}XX^T
-\end{align}
+  \widehat{C_{j,k}} \approx \frac{1}{N} \sum_{i=1}^{N} (x_j^i - \mu _j) \cdot (x_k^i - \mu_k) = \frac{1}{N} \sum_{i=1}^{N} x_j^i \cdot x_k^i \\
+  \implies \widehat{C} \approx \frac{1}{N}XX^T
 $$
 
-If the  ${\mathop{\mathbb{Cov}[X,Y]}}$ result is positive, that means that X,Y are positively correlated. The large the ${\mathop{\mathbb{Cov}[X,Y]}}$ result is, the dependency between X and Y will be.
+If the covariance result is positive, that means that X,Y are positively correlated. The large the covariance result is, the dependency between X and Y will be.
 
-After ${\mathop{\mathbb{Cov}[X]}}$ calculated, \code{linalg.eig()} function in \code{numpy} was called to generate the eigenvalues, eigenvectors of the co-variance matrix.
+After covariance result calculated, {linalg.eig()} function in{numpy} was called to generate the eigenvalues, eigenvectors of the co-variance matrix.
 
-Once finish SVD decomposition, $\widetilde{\mathop{\mathbb{Cov}[X]}}$ can be calculated as a matrix whose diagonal elements are exactly the eigenvalues of ${\mathop{\mathbb{Cov}[X]}}$.
+Once finish SVD decomposition, Cov[X] can be calculated as a matrix whose diagonal elements are exactly the eigenvalues of Cov[X].
 
 Many of the features here are related to class tags, but there is noise or redundancy. In this case, a feature dimensionality reduction method is needed to reduce the number of features, reduce noise and redundancy, and reduce the possibility of over-fitting.
 
@@ -298,7 +292,7 @@ The idea of PCA is to map n-dimensional features to the k dimension (k<n), which
 
 The above  {\bf{Figure 1.3.1}} shows the cumulative eigenvalues of the co-variance matrix. It illustrates that if we just take two principal components base on this data set, it would not represent the original data set  roughly. Hence, in the {\bf{Figure 1.3.1}}, the knee point can be found according to the decrease ratio as the figure present.
 
-The most important and useful information from PCA is the ranked imporance for the attributes.  It means how many separable or variance information is allocated in a certain attribute from the dataset.  In the following table, I list the value of the first 2 eigenvectors of the covariance matrix. The first column here shows coefficients of linear combination that defines principal component #1, and the second column shows coefficients for principal component #2. 
+The most important and useful information from PCA is the ranked imporance for the attributes.  It means how many separable or variance information is allocated in a certain attribute from the dataset.  In the following table, I list the value of the first 2 eigenvectors of the covariance matrix. The first column here shows coefficients of linear combination that defines principal component 1, and the second column shows coefficients for principal component 2. 
 
 If the value is positive, there is a positive correlation between the value and the principal component it project to. While, if it is negative, things will opposite the positive one. However, whatever the sign of a value is, I just care about how large the absolute value it will be.  The large the absolute value is, the large effect it will do to principal component.
 
@@ -329,37 +323,31 @@ If the value is positive, there is a positive correlation between the value and 
 {\centering{\bf{Table 1.3.1: Top two eigenvectors}}}
 \end{center}
 
-\newpage
 
 Analysing the {\bf{Table 1.3.1: Top two eigenvectors}} In new axis 1,{\bf fixed acidity} index is the most important part because the coeffcient is {\bf 0.48931421519678553}which do largest contribution to the {\bf 1st principal component}. Similarly, {\bf density} is the most important part of {\bf 2 nd principal component} which is {\bf 0.5694869591070468}.
 Combine with two column as the table display. We can only find that just {\bf residual sugar} appear in the {\bf last four value} both in 1st and 2 nd column. Thus, probably {\bf residual sugar} is the most useless feature in all data set.
 
 \newpage
-
 \begin{center}
 \begin{figure}[h]
 {\centering {\includegraphics[width=0.7\linewidth,angle=0]{logo/2D_PCA.png}}\par}
 \end{figure}
 {\centering{\bf{Figure 1.3.3: 2D PCA projection }}}
 \end{center}
-
-
+\newpage
 \begin{center}
 \begin{figure}[h]
 {\centering {\includegraphics[width=0.7\linewidth,angle=0]{logo/3D_PCA_ex_quality.png}}\par}
 \end{figure}
-{\centering{\bf{Figure 1.3.4: 3D PCA projection of area }}}
+{\centering{\bf{Figure 1.3.4: 3D PCA projection }}}
 \end{center}
-
 \newpage
-
 \begin{center}
 \begin{figure}[h]
 {\centering {\includegraphics[width=0.7\linewidth,angle=0]{logo/3D_eigen_ratio.png}}\par}
 \end{figure}
 {\centering{\bf{Figure 1.3.5:  Ratio of 3 cumulative components}}}
 \end{center}
-
 \newpage
 
 
@@ -374,7 +362,7 @@ It is quite clear that the data be separated into two region, but actually we wa
 \begin{figure}[h]
 {\centering {\includegraphics[width=0.7\linewidth,angle=0]{logo/direct_som.png}}\par}
 \end{figure}
-{\centering{\bf{Figure 1.3.5: Direct SOM of 11 Dimensional data }}}
+{\centering{\bf{Figure 1.3.6: Direct SOM of 11 Dimensional data }}}
 \end{center}
 
 \newpage
@@ -385,30 +373,28 @@ Next, I used PCA to make the data reduce to {\bf 5 dimensions} with the use of  
 \begin{figure}[h]
 {\centering {\includegraphics[width=0.7\linewidth,angle=0]{logo/2D_SOM_10.png}}\par}
 \end{figure}
-{\centering{\bf{Figure 1.3.6: SOM (Iteration: 10 times)}}}
+{\centering{\bf{Figure 1.3.7: SOM (Iteration: 10 times)}}}
 \end{center}
-
+\newpage
 \begin{center}
 \begin{figure}[h]
 {\centering {\includegraphics[width=0.7\linewidth,angle=0]{logo/2D_SOM_30.png}}\par}
 \end{figure}
-{\centering{\bf{Figure 1.3.7: SOM(Iteration: 30 times) }}}
+{\centering{\bf{Figure 1.3.8: SOM(Iteration: 30 times) }}}
 \end{center}
-
-\newpage
 
 \begin{center}
 \begin{figure}[h]
 {\centering {\includegraphics[width=0.7\linewidth,angle=0]{logo/2D_SOM_50.png}}\par}
 \end{figure}
-{\centering{\bf{Figure 1.3.7: SOM(Iteration: 50 times) }}}
+{\centering{\bf{Figure 1.3.9: SOM(Iteration: 50 times) }}}
 \end{center}
-
+\newpage
 \begin{center}
 \begin{figure}[h]
 {\centering {\includegraphics[width=0.7\linewidth,angle=0]{logo/SOM_quantization_error.png}}\par}
 \end{figure}
-{\centering{\bf{Figure 1.3.7: SOM Quantization Error) }}}
+{\centering{\bf{Figure 1.3.10: SOM Quantization Error) }}}
 \end{center}
 
 In conclusion, SOM can reduce the high level dimension data set to lower level dimension which will make us easier to see the data feature in the current lower coordinate. Although in some coordinate there exist some small cluster be separated,  we can find the link of nodes with same label dominate to whole graph.  And we can simply find the the data be separated into {\bf mainly 3 clusters: yellow, green, blue}.
@@ -439,7 +425,7 @@ In order to find the difference of clustering with and without PCA, here I made 
 \begin{figure}[h]
 {\centering {\includegraphics[width=0.7\linewidth,angle=0]{logo/knee_point_without_pca.png}}\par}
 \end{figure}
-{\centering{\bf{Figure 1.4.1:Clustering Quantization Error without PCA}}}
+{\centering{\bf{Figure 1.3.1:Clustering Quantization Error without PCA}}}
 \end{center}
 
 \newpage
@@ -449,33 +435,34 @@ In order to find the difference of clustering with and without PCA, here I made 
 \begin{figure}[h]
 {\centering {\includegraphics[width=0.7\linewidth,angle=0]{logo/3D_2-means_clustering.png}}\par}
 \end{figure}
-{\centering{\bf{Figure 1.4.2: 2-Means Clustering }}}
+{\centering{\bf{Figure 1.3.2: 2-Means Clustering }}}
 \end{center}
 
 \begin{center}
 \begin{figure}[h]
-{\centering {\includegraphics[width=0.7\linewidth,angle=0]{logo/3D_3-means_clustering.png}}\par}
+{\centering {\includegraphics[width=0.6\linewidth,angle=0]{logo/3D_3-means_clustering.png}}\par}
 \end{figure}
-{\centering{\bf{Figure 1.4.3: 3-Means Clustering }}}
+{\centering{\bf{Figure 1.3.3: 3-Means Clustering }}}
 \end{center}
 
 \newpage
 
 \begin{center}
 \begin{figure}[h]
-{\centering {\includegraphics[width=0.7\linewidth,angle=0]{logo/3D_4-means_clustering.png}}\par}
+{\centering {\includegraphics[width=0.6\linewidth,angle=0]{logo/3D_4-means_clustering.png}}\par}
 \end{figure}
-{\centering{\bf{Figure 1.4.4: 4-Means Clustering }}}
+{\centering{\bf{Figure 1.3.4: 4-Means Clustering }}}
 \end{center}
 
 \begin{center}
 \begin{figure}[h]
-{\centering {\includegraphics[width=0.7\linewidth,angle=0]{logo//3D_4-means_clustering.png}}\par}
+{\centering {\includegraphics[width=0.6\linewidth,angle=0]{logo//3D_4-means_clustering.png}}\par}
 \end{figure}
-{\centering{\bf{Figure 1.4.5: 5-Means Clustering }}}
+{\centering{\bf{Figure 1.3.5: 5-Means Clustering }}}
 \end{center}
-
-{\bf Conclusion: Without doing the pca, the data we observe in the 3D level always aim to cover themselves. So that we can obsever the data straight forward which is not a good method.
+\newpage
+\subsection{Conclusion}
+{\bf Without doing the pca, the data we observe in the 3D level always aim to cover themselves. So that we can obsever the data straight forward which is not a good method.
 
 \newpage
 
@@ -486,9 +473,9 @@ We have see the result of clustering without pca. It seems not be a good method 
 
 \begin{center}
 \begin{figure}[h]
-{\centering {\includegraphics[width=0.7\linewidth,angle=0]{logo/knee_point_after_pca.png}}\par}
+{\centering {\includegraphics[width=0.6\linewidth,angle=0]{logo/knee_point_after_pca.png}}\par}
 \end{figure}
-{\centering{\bf{Figure 1.4.6: Clustering Quantization Error with PCA}}}
+{\centering{\bf{Figure 1.3.6: Clustering Quantization Error with PCA}}}
 \end{center}
 
 \newpage
@@ -496,33 +483,33 @@ We have see the result of clustering without pca. It seems not be a good method 
 
 \begin{center}
 \begin{figure}[h]
-{\centering {\includegraphics[width=0.7\linewidth,angle=0]{logo/3D_2-means_pca_clustering.png}}\par}
+{\centering {\includegraphics[width=0.6\linewidth,angle=0]{logo/3D_2-means_pca_clustering.png}}\par}
 \end{figure}
-{\centering{\bf{Figure 1.4.7: 2-Means Clustering }}}
+{\centering{\bf{Figure 1.3.7: 2-Means Clustering }}}
 \end{center}
 
 
 \begin{center}
 \begin{figure}[h]
-{\centering {\includegraphics[width=0.7\linewidth,angle=0]{logo/3D_3-means_pca_clustering.png}}\par}
+{\centering {\includegraphics[width=0.6\linewidth,angle=0]{logo/3D_3-means_pca_clustering.png}}\par}
 \end{figure}
-{\centering{\bf{Figure 1.4.8: 3-Means Clustering }}}
+{\centering{\bf{Figure 1.3.8: 3-Means Clustering }}}
 \end{center}
 \newpage
 
 
 \begin{center}
 \begin{figure}[h]
-{\centering {\includegraphics[width=0.7\linewidth,angle=0]{logo/3D_4-means_pca_clustering.png}}\par}
+{\centering {\includegraphics[width=0.6\linewidth,angle=0]{logo/3D_4-means_pca_clustering.png}}\par}
 \end{figure}
-{\centering{\bf{Figure 1.4.9: 4-Means Clustering }}}
+{\centering{\bf{Figure 1.3.9: 4-Means Clustering }}}
 \end{center}
 
 \begin{center}
 \begin{figure}[h]
-{\centering {\includegraphics[width=0.7\linewidth,angle=0]{logo/3D_5-means_pca_clustering.png}}\par}
+{\centering {\includegraphics[width=0.6\linewidth,angle=0]{logo/3D_5-means_pca_clustering.png}}\par}
 \end{figure}
-{\centering{\bf{Figure 1.4.10: 5-Means Clustering }}}
+{\centering{\bf{Figure 1.3.10: 5-Means Clustering }}}
 \end{center}
 
 
@@ -587,7 +574,7 @@ The result as follow. The first two feature affect to the data are fixed acidity
 \begin{figure}[h]
 {\centering {\includegraphics[width=0.7\linewidth,angle=0]{logo/knee_point_2.png}}\par}
 \end{figure}
-{\centering{\bf{Figure 2.3.1: Cumulative eigenvalues of co-variance matrix}}}
+{\centering{\bf{Figure 2.3.2: Cumulative eigenvalues of co-variance matrix}}}
 \end{center}
 
 
@@ -595,15 +582,15 @@ The result as follow. The first two feature affect to the data are fixed acidity
 
 \begin{center}
 \begin{figure}[h]
-{\centering {\includegraphics[width=0.7\linewidth,angle=0]{logo/3D_PCA_ex_sulfur.png}}\par}
+{\centering {\includegraphics[width=0.6\linewidth,angle=0]{logo/3D_PCA_ex_sulfur.png}}\par}
 \end{figure}
-{\centering{\bf{Figure 2.3.4: 3D PCA projection of total sulfur dioxide }}}
+{\centering{\bf{Figure 2.3.3: 3D PCA projection of total sulfur dioxide }}}
 \end{center}
 
 
 \begin{center}
 \begin{figure}[h]
-{\centering {\includegraphics[width=0.7\linewidth,angle=0]{logo/3D_2-means_clustering_2.png}}\par}
+{\centering {\includegraphics[width=0.6\linewidth,angle=0]{logo/3D_2-means_clustering_2.png}}\par}
 \end{figure}
 {\centering{\bf{Figure 2.3.4: Clustering of total sulfur dioxide }}}
 \end{center}
