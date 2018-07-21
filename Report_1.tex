@@ -60,7 +60,7 @@
 %\large
 {\LARGE \bf{ Estimating Wine Quality from a 12-Dimensional
 Data Set}} \\
-\vspace{2.0cm}
+\vspace{1.5cm}
 %\it{A project report submitted in partial fulfillment \\ for the requirements for the degree of \\ Master of IT in Business} \\
 \large \bf{ Report of } \\
 \large \bf{CS212\\ Intelligent Data Analysis} \\
@@ -71,14 +71,14 @@ Data Set}} \\
 \rm
 {\large \bf {Ziyuan Ye}}\\
 %{\large \bf {01010410}}
-\vspace{0.5cm}
+\vspace{0.3cm}
 %\sc
 \bf{11610203@mail.sustc.edu.cn} \\
 
 \vspace{1cm}
 
 {\large\sc{under the guidance of}} \\
-%\vspace{.5cm}
+\vspace{.5cm}
 
 \hspace{.05cm} {\bf {Peter Ti\v{n}o}}\\
 \hspace{.05cm} {\sc and}\\
@@ -108,8 +108,8 @@ Data Set}} \\
 
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{\numberline{}CERTIFICATE}
-This assignment focus on analsying the data set with the technique such as {\bf K-means Clustering},{\bf Self Organizing Map (SOM)} and {\bf Principal Component Analysis (PCA)}. I try to combine the above methods work out some problems of a data set which is called {\bf wine-quality}.))
-These attributes of the data set seem not correlate with each other. However, there must exist some hidden relationship in the data set. {\bf eg: wine quality must be influence by some attribute}. With the reduce of dimension, gradually the relationship between the attributes were disclosed .  There are two data set in my folder, in these assignment I only focus on the red wine-quality data set.
+This assignment focus on analsying the data set with the technique such as {\bf K-means Clustering}, {\bf Self Organizing Map (SOM)} and {\bf Principal Component Analysis (PCA)}. I try to combine the above methods to work out some problems of a data set which is called {\bf wine-quality}.))
+These attributes of the data set seem not correlate with each other. However, there must exist some hidden relationship in the data set. {\bf eg: wine quality must be influence by some attribute}. With the reduce of dimension, gradually the relationship between the attributes were disclosed.  There are two data set in my folder, in these assignment I only focus on the red wine-quality data set.
 
 
 \chapter*{Detail of Red Wine Quality Data Set}
@@ -174,7 +174,7 @@ In my assignment, there are two question I want to analysis:
 
 
 \section*{Normalization}
-The {\bf unit} and {\bf scale} of the data is different, this method can make different characters have the same scale.  Only in this way, the comparision can be valid.
+The {\bf unit} and {\bf scale} of the data is different, this method can make different characters have the same scale.  Only in this way, the comparison can be valid.
 $$
   \widehat{E[X_i]} \approx \frac{1}{N} \sum_{j=1}^{N} X_i^j \\
   \widehat{Var[X_i]}   \approx \frac{1}{N} \sum_{j=1}^N (X_i^j - \widehat{E[X_i]})^2 = \sigma^2 \\
@@ -188,7 +188,7 @@ $$
 \chapter{Topic 1: How does the quality of wine influenced by all the attribute in the data set? }
 \section{Labelling Strategy}
 
-When analysing the first problem, the category of quality is the main attribute we want to focus. By analysis the data set of red wine, I discover that quality is range from 3 to 8. So there come up with two strategy that I would like to use.
+When analysing the first problem, the category of quality is the main attribute we want to focus. By analysis the data set of red wine, I discover that quality is range from 3 to 8. So I come up with two strategies.
 
 
 \newpage
@@ -239,13 +239,13 @@ The final labelling result is:
 \item{Class 4: 199 cases.}
 \item{Class 5: 199 cases.}
 \end{itemize}
-
+\newpage
 \begin{center}
 \begin{figure}[hbtp]
-{\centering {\includegraphics[width=0.6\linewidth,angle=0]{logo/label2.png}}\par}
+{\centering {\includegraphics[width=0.7\linewidth,angle=0]{logo/label2.png}}\par}
 \caption{ Labeling Strategy 2}
 \end{figure}
-{\centering{\bf{ Histogram of Alcohol}}}
+{\centering{\bf{ Histogram of Wine Quality}}}
 \end{center}
 
 
@@ -264,7 +264,7 @@ $$
 
 If the covariance result is positive, that means that X,Y are positively correlated. The large the covariance result is, the dependency between X and Y will be.
 
-After covariance result calculated, {linalg.eig()} function in{numpy} was called to generate the eigenvalues, eigenvectors of the co-variance matrix.
+After calculating covariance result, {linalg.eig()} function in {numpy} was called to generate the eigenvalues, eigenvectors of the co-variance matrix.
 
 Once finish SVD decomposition, Cov[X] can be calculated as a matrix whose diagonal elements are exactly the eigenvalues of Cov[X].
 
@@ -276,14 +276,14 @@ The idea of PCA is to map n-dimensional features to the k dimension (k<n), which
 
 \begin{center}
 \begin{figure}[h]
-{\centering {\includegraphics[width=0.7\linewidth,angle=0]{logo/2D_eigen_ratio.png}}\par}
+{\centering {\includegraphics[width=0.6\linewidth,angle=0]{logo/2D_eigen_ratio.png}}\par}
 \end{figure}
 {\centering{\bf{Figure 1.3.1: Cumulative Eigenvalues of Co-variance Matrix}}}
 \end{center}
 
 \begin{center}
 \begin{figure}[h]
-{\centering {\includegraphics[width=0.7\linewidth,angle=0]{logo/knee_point.png}}\par}
+{\centering {\includegraphics[width=0.6\linewidth,angle=0]{logo/knee_point.png}}\par}
 \end{figure}
 {\centering{\bf{Figure 1.3.2: Knee Points}}}
 \end{center}
@@ -323,21 +323,21 @@ If the value is positive, there is a positive correlation between the value and 
 {\centering{\bf{Table 1.3.1: Top two eigenvectors}}}
 \end{center}
 
-
+\newpage
 Analysing the {\bf{Table 1.3.1: Top two eigenvectors}} In new axis 1,{\bf fixed acidity} index is the most important part because the coeffcient is {\bf 0.48931421519678553}which do largest contribution to the {\bf 1st principal component}. Similarly, {\bf density} is the most important part of {\bf 2 nd principal component} which is {\bf 0.5694869591070468}.
 Combine with two column as the table display. We can only find that just {\bf residual sugar} appear in the {\bf last four value} both in 1st and 2 nd column. Thus, probably {\bf residual sugar} is the most useless feature in all data set.
 
 \newpage
 \begin{center}
 \begin{figure}[h]
-{\centering {\includegraphics[width=0.7\linewidth,angle=0]{logo/2D_PCA.png}}\par}
+{\centering {\includegraphics[width=0.6\linewidth,angle=0]{logo/2D_PCA.png}}\par}
 \end{figure}
 {\centering{\bf{Figure 1.3.3: 2D PCA projection }}}
 \end{center}
-\newpage
+
 \begin{center}
 \begin{figure}[h]
-{\centering {\includegraphics[width=0.7\linewidth,angle=0]{logo/3D_PCA_ex_quality.png}}\par}
+{\centering {\includegraphics[width=0.6\linewidth,angle=0]{logo/3D_PCA_ex_quality.png}}\par}
 \end{figure}
 {\centering{\bf{Figure 1.3.4: 3D PCA projection }}}
 \end{center}
@@ -353,7 +353,7 @@ Combine with two column as the table display. We can only find that just {\bf re
 
 \subsection{Self-organizing Map}
 
-To compare directly put original data set to som method and som after pca, I do the directly som firstly.
+To compare the result of directly putting original data set to SOM method with SOM data after PCA, I do the direct SOM first.
 
 It is quite clear that the data be separated into two region, but actually we want to see the data can be analysis or observe in the lower dimension.  Directly som seems to reduce the dimension, however it is a {\bf fake}.  With the check of  normal vectors of the grids most of the cos value of the normal vectors are negative values or very small values, which means that the angle between each grid is pretty large, which confirm my judgement.
 
@@ -378,14 +378,14 @@ Next, I used PCA to make the data reduce to {\bf 5 dimensions} with the use of  
 \newpage
 \begin{center}
 \begin{figure}[h]
-{\centering {\includegraphics[width=0.7\linewidth,angle=0]{logo/2D_SOM_30.png}}\par}
+{\centering {\includegraphics[width=0.6\linewidth,angle=0]{logo/2D_SOM_30.png}}\par}
 \end{figure}
 {\centering{\bf{Figure 1.3.8: SOM(Iteration: 30 times) }}}
 \end{center}
 
 \begin{center}
 \begin{figure}[h]
-{\centering {\includegraphics[width=0.7\linewidth,angle=0]{logo/2D_SOM_50.png}}\par}
+{\centering {\includegraphics[width=0.6\linewidth,angle=0]{logo/2D_SOM_50.png}}\par}
 \end{figure}
 {\centering{\bf{Figure 1.3.9: SOM(Iteration: 50 times) }}}
 \end{center}
@@ -396,18 +396,19 @@ Next, I used PCA to make the data reduce to {\bf 5 dimensions} with the use of  
 \end{figure}
 {\centering{\bf{Figure 1.3.10: SOM Quantization Error) }}}
 \end{center}
+The fluctuation of the {\bf Figure 1.3.10} shown might resulted by high learning rate $\alpha$ and high $\tau$
 
-In conclusion, SOM can reduce the high level dimension data set to lower level dimension which will make us easier to see the data feature in the current lower coordinate. Although in some coordinate there exist some small cluster be separated,  we can find the link of nodes with same label dominate to whole graph.  And we can simply find the the data be separated into {\bf mainly 3 clusters: yellow, green, blue}.
+In conclusion, SOM can reduce the high level dimension data set to lower level dimension which will make us easier to see the data feature in the current lower coordinate. Although in some coordinate there exist some separate small cluster,  we can find the link of nodes with same label dominate to whole graph.  And we can simply find the the data be separated into {\bf mainly 3 clusters: yellow, green, blue}.
 
 
 \newpage
 
-\subsection{The Comparision PCA and SOM}
+\subsection{The Comparison PCA and SOM}
 
 PCA and SOM are different technique to reduce the dimension of data. There exist some common and difference between them. My conclusion is as follow.
 
 \begin{itemize}
-\item{When we focus a data set with {\bf high dimension}. If we want to reduce the dimension, we {\bf should not use SOM alone}. We should use PCA first to reduce the dimension as your wish, then do the SOM to make it easier to see the data feature in the current lower coordinate.}
+\item{When we focus a data set with high dimension, if we want to reduce the dimension, we should  {\bf not use SOM alone}. We should use PCA first to reduce the dimension as your wish, then do the SOM to make it easier to see the data feature in the current lower coordinate.}
 \item{Both of them can reduce the dimension of data. However SOM is more likely to use for compressing and stretching the data to suit the new coordinate. PCA can just combine the current related dimension of  coordinate to form a new coordinate which is rather than a projection but a  combination. }
 \end{itemize}
 
@@ -462,14 +463,14 @@ In order to find the difference of clustering with and without PCA, here I made 
 \end{center}
 \newpage
 \subsection{Conclusion}
-{\bf Without doing the pca, the data we observe in the 3D level always aim to cover themselves. So that we can obsever the data straight forward which is not a good method.
+{\bf Without doing the PCA, the data we observe in the 3D level always aim to keep out each other. For example, in the {\bf Figure 1.3.5}, the node with green color block out the shown of other node.  If we can not observe the data straight forward, it might not a good method.
 
 \newpage
 
 
 \subsection{Clustering with PCA}
 
-We have see the result of clustering without pca. It seems not be a good method to obsever.  Hence, I try to do PCA first to reduce the dimension of data, to see if it can improve the observation.
+We have see the result of clustering without PCA. It seems not be a good method to obsever.  Hence, I try to do PCA first to reduce the dimension of data, to see if it can improve the observation.
 
 \begin{center}
 \begin{figure}[h]
@@ -517,9 +518,8 @@ We have see the result of clustering without pca. It seems not be a good method 
 
 \subsection{Conclusion}
 
-After  doing the clustering with or without PCA, my conclusion as follow.
+After  doing the clustering with or without PCA, my conclusion is as follow. Comparing the knee point in {\bf Figure 1.4.1} and {Figure 1.4.6}. It is obvious that {\bf clustering with PCA reduce the quantization error}. It might because of the reduction of dimension the PCA have simultaneously reduced the noise features.
 
-Comparing the knee point in {\bf Figure 1.4.1} and {Figure 1.4.6}. It is obvious that {\bf clustering with PCA reduce the quantization error}. It might because of the reduction of dimension the PCA have done simultaneously reduce the noise.
 The knee point in graph of quantization error can not be a judgement of result of clustering. So we see the {\bf Figure 1.4.8} to estimate if this clustering method is suitable to this data set. We can find that the data set be separated unambiguous. Thus, k-means clustering is suitable for this data set.
 
 
@@ -539,7 +539,7 @@ Strategy of labelling the total sulfur dioxide (0,160], (160 440]
 \subsection{Principal Component Analysis}
 
 Just like what I did in {\bf{Section 1.3}}, I used the same technique to complete this part. 
-The result as follow. The first two feature affect to the data are fixed acidity and alcohol, which are {\bf 0.48809550387543194} and {\bf  -0.5528903530300658}
+The result is as follow. The first two feature affect to the data are fixed acidity and alcohol, which are {\bf 0.48809550387543194} and {\bf  -0.5528903530300658}
 
 
 \begin{center}
@@ -552,17 +552,17 @@ The result as follow. The first two feature affect to the data are fixed acidity
   \hline
   Dimensions & Values & Dimensions & Values\\
   \hline
-  fixed acidity & 0.48809550387543194 & alcohol & -0.5528903530300658\\
-  citric acid & 0.4734325262220812 & quality & -0.5236044991201001\\
-  pH & -0.4326046485510123 & volatile acidity & 0.3986719794517932\\
-  density & 0.3698915265676169 & density & -0.37857017927744485\\
-  volatile acidity & -0.2655231833551456 & 'chlorides' & 0.20275695801841312\\
-  sulphates & -0.2545312162478427 & citric acid & -0.1691026594058847\\
-  chlorides & 0.19715263821767132 & sulphates & -0.1637023809766136\\
-  residual sugar & 0.13860211721461613 & residual sugar & 0.10175002720609787\\
-  quality & 0.11318644768411748 & pH & -0.07645796788428783\\
-  alcohol & -0.07242073902021279 & free sulfur dioxide & 0.055788721251921254\\
-  free sulfur dioxide & -0.047260478851762794 &  fixed acidity  & 0.04560728999309162\\
+  fixed acidity & 0.4880955038 & alcohol & -0.552890353\\
+  citric acid & 0.473432526 & quality & -0.523604499\\
+  pH & -0.432604648 & volatile acidity & 0.398671979\\
+  density & 0.369891526 & density & -0.3785701792\\
+  volatile acidity & -0.265523183 & 'chlorides' & 0.2027569580\\
+  sulphates & -0.254531216 & citric acid & -0.169102659\\
+  chlorides & 0.1971526382 & sulphates & -0.163702380\\
+  residual sugar & 0.1386021172 & residual sugar & 0.1017500272\\
+  quality & 0.1131864476 & pH & -0.0764579678\\
+  alcohol & -0.0724207390 & free sulfur dioxide & 0.05578872125\\
+  free sulfur dioxide & -0.04726047885 &  fixed acidity  & 0.0456072899\\
   \hline
 \end{tabular}}}
 {\centering{\bf{Table 2.3.1: Top two eigenvectors}}}
@@ -600,7 +600,7 @@ The result as follow. The first two feature affect to the data are fixed acidity
 
 As what I  mention, The first two feature affect to the total sulfur dioxide are fixed acidity and alcohol, which are {\bf 0.48809550387543194} and {\bf  -0.5528903530300658}
 
-Because of the limitation of working time and similarity of works, SOM and clustering were only present one figure.
+Because of the limitation of working time and similarity of works, SOM and clustering only present one figure.
 
 However, I cover all the requirements.
 
