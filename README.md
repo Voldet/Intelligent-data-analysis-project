@@ -1,8 +1,8 @@
 # data_analysis
 ## Main file
-Main.py
-SOM.py
-Final report.pdf
+1. Main.py
+2. SOM.py
+3. Final report.pdf
 ## Main figure
 Save in the logo folder
 ## Data file
